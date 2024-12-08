@@ -1,6 +1,8 @@
 name: AoC 2024 Review
 run-name: Running latest changes to AoC 2024 solutions
-on: push
+
+on: [push]
+
 jobs:
 	Download-Daily-Inputs:
 		runs-on: ubuntu-latest
