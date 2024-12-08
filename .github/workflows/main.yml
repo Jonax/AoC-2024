@@ -1,7 +1,9 @@
 name: AoC 2024 Review
 run-name: Running latest changes to AoC 2024 solutions
 
-on: [push]
+on:
+  - push
+  - workflow_dispatch
 jobs:
   Verify-Solutions:
     runs-on: ubuntu-latest
