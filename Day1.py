@@ -17,11 +17,15 @@ APPROACH:
 '''
 
 def Parse(inputFile):
+	# Use a regex to simplify matching
 	inputRegex = re.compile(r"(\d+)\s+(\d+)")
 
 	with open(inputFile) as inFile:
 		for line in inputRegex.findall(inFile.read()):
+			# Check the line only has two values
 			assert len(line) == 2
+
+			# Cast the values to integers and return the row as a tuple.
 			yield tuple(int(x) for x in line)
 
 def Solve(inputFile, combine = False):
@@ -40,8 +44,9 @@ def Solve(inputFile, combine = False):
 
 	return sum([a * right[a] for a in left])
 
-assert Solve("Day1_Example.txt") == 11
-assert Solve("Day1_Input.txt") == 1941353
+if __name__ == "__main__":
+	assert Solve("Day1_Example.txt") == 11
+	assert Solve("Day1_Input.txt") == 1941353
 
-assert Solve("Day1_Example.txt", combine = True) == 31
-assert Solve("Day1_Input.txt", combine = True) == 22539317
+	assert Solve("Day1_Example.txt", combine = True) == 31
+	assert Solve("Day1_Input.txt", combine = True) == 22539317
