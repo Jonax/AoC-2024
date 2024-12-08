@@ -1,4 +1,3 @@
-import os
 import re
 from collections import Counter
 
@@ -34,12 +33,12 @@ def Solve(inputFile, combine = False):
 		left.sort()
 		right = sorted(x[1] for x in lines)
 
-		return sum(abs(l - r) for l,r in zip(left, right))
+		return sum(abs(a - b) for a,b in zip(left, right))
 
 	# Part 2
 	right = Counter(x[1] for x in lines)
 
-	return sum([l * right[l] for l in left])
+	return sum([a * right[a] for a in left])
 
 assert Solve("Day1_Example.txt") == 11
 assert Solve("Day1_Input.txt") == 1941353
