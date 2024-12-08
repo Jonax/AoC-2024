@@ -1,36 +1,61 @@
-import os
 import re
-from collections import Counter
+from math import prod
+
+'''
+APPROACH:
+	Parse the input as a raw set of text-based data.  
+	Search for all instances of `mul(a, b)`, `do()` and `don't()`.
+	As a precaution, only count `mul`s featuring 1-3 digit numbers.
+	Multiple the numbers in each `mul` call and sum up the multiplcations.  
+
+	For Part 1:
+		`do` and `don't` have no effect here.
+		Just count all the `mul`s and process.  
+
+	For Part 2:
+		`do` and `don't` will switch on/off whether to include subsequent
+		`mul`s. The flag starts at enabled. 
+		Only count the `mul`s when the flag is enabled. 
+'''
 
 def Parse(inputFile):
+	# Send the input back raw: It's needed in this case.
 	with open(inputFile) as inFile:
 		return inFile.read().strip()
 
 def Solve(inputFile, toggle = False):
-	op_regex = re.compile(r"mul\((?P<a>\d{1,3}),(?P<b>\d{1,3})\)|don't\(\)|do\(\)")
+	# Regex to capture relevant operators from raw data.
+	opRegex = re.compile(r"(mul|do|don't)\((?:(\d{1,3}),(\d{1,3})){0,1}\)")
 
-	active = True
-	result = 0
-	for match in op_regex.finditer(Parse(inputFile)):
-		# Strangely easier to determine which operation by partitioning the match, than to handle in 
-		# the regex level (especially as brackets can be different).
-		op = match.group(0).rpartition("(")[0]
+	result = 0		# Running total for final result.
+
+	active = True	# Flag to determine whether to cuunt a `mul`.
+	for match in opRegex.finditer(Parse(inputFile)):
+		# `mul`s will have two values, `do` and `don't` none.
+		op, *values = match.groups()
+
 		if op == "don't":
-			if toggle == True:
+			# Stop counting `mul`s, but ONLY is in Part 2.
+			if toggle:
 				active = False
 		elif op == "do":
+			# Count `do`s regardless: This will have zero effect in Part 1.
 			active = True
 		else:
+			# Sanity check: Make sure the operation is a `mul`, in case it's
+			# no longer the only remaining operator.  
 			assert op == "mul"
-			if not active:
-				continue
 
-			result += int(match.group("a")) * int(match.group("b"))
+			# If not currently ignoring, add the product to the running total.  
+			if active:
+				result += prod(int(x) for x in values)
 
+	# Return running total
 	return result
 
-assert Solve("Day3_ExampleA.txt") == 161
-assert Solve("Day3_Input.txt") == 187825547
+if __name__ == "__main__":
+	assert Solve("Day3_ExampleA.txt") == 161
+	assert Solve("Day3_Input.txt") == 187825547
 
-assert Solve("Day3_ExampleB.txt", toggle = True) == 48
-print(Solve("Day3_Input.txt", toggle = True))
+	assert Solve("Day3_ExampleB.txt", toggle = True) == 48
+	assert Solve("Day3_Input.txt", toggle = True) == 85508223
