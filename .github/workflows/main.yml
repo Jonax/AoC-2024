@@ -8,12 +8,14 @@ jobs:
   Verify-Solutions:
     runs-on: ubuntu-24.04
     steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout:
+            - *.py
+            - *.txt
       - name: Apply personal cookie
         env:
           SESSION: ${{ secrets.SESSION }}
         run: echo "$SESSION" > .session
-      - uses: actions/checkout@v4
-        with:
-          sparse-checkout: .
       - name: Test
         run: ls -a .
