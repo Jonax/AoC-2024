@@ -2,7 +2,6 @@ name: AoC 2024 Review
 run-name: Running latest changes to AoC 2024 solutions
 
 on: [push]
-
 jobs:
   Verify-Solutions:
     runs-on: ubuntu-latest
@@ -11,5 +10,8 @@ jobs:
         env:
           SESSION: ${{ secrets.SESSION }}
         run: echo "$SESSION" > .session
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .
       - name: Test
         run: ls -a .
