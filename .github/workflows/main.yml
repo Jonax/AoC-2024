@@ -10,9 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          sparse-checkout:
-            - *.py
-            - *.txt
+          sparse-checkout: .
       - name: Apply personal cookie
         env:
           SESSION: ${{ secrets.SESSION }}
