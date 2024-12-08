@@ -12,4 +12,4 @@ jobs:
           SESSION: ${{ secrets.SESSION }}
         run: echo "$SESSION" > .session
       - name: Test
-        run: ls .
+        run: ls -a .
