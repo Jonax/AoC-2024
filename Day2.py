@@ -74,7 +74,7 @@ def Solve(inputFile, maxTolerance = 0):
 
 if __name__ == "__main__":
 	assert Solve("Day2_Example.txt") == 2
-	assert Solve("Day2_Input.txt") == 483
+	assert Solve("inputs/Day02_input.txt") == 483
 
 	assert Solve("Day2_Example.txt", maxTolerance = 1) == 4
-	assert Solve("Day2_Input.txt", maxTolerance = 1) == 528
+	assert Solve("inputs/Day02_input.txt", maxTolerance = 1) == 528

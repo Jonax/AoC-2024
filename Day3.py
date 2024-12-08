@@ -55,7 +55,7 @@ def Solve(inputFile, toggle = False):
 
 if __name__ == "__main__":
 	assert Solve("Day3_ExampleA.txt") == 161
-	assert Solve("Day3_Input.txt") == 187825547
+	assert Solve("inputs/Day03_input.txt") == 187825547
 
 	assert Solve("Day3_ExampleB.txt", toggle = True) == 48
-	assert Solve("Day3_Input.txt", toggle = True) == 85508223
+	assert Solve("inputs/Day03_input.txt", toggle = True) == 85508223

@@ -75,7 +75,7 @@ def Solve(inputFile, interfere = False):
 	return numMatches
 
 assert Solve("Day6_Example.txt") == 41
-assert Solve("Day6_Input.txt") == 5199
+assert Solve("inputs/Day06_input.txt") == 5199
 
 assert Solve("Day6_Example.txt", interfere = True) == 6
-assert Solve("Day6_Input.txt", interfere = True) == 1915
+assert Solve("inputs/Day06_input.txt", interfere = True) == 1915

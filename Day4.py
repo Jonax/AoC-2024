@@ -92,7 +92,7 @@ def PartB(inputFile):
 
 assert PartA("Day4_ExampleA.txt") == 4
 assert PartA("Day4_ExampleB.txt") == 18
-assert PartA("Day4_Input.txt") == 2571
+assert PartA("inputs/Day04_input.txt") == 2571
 
 assert PartB("Day4_ExampleB.txt") == 9
-print(PartB("Day4_Input.txt"))
+print(PartB("inputs/Day04_input.txt"))
