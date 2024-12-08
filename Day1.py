@@ -29,9 +29,13 @@ def Parse(inputFile):
 			yield tuple(int(x) for x in line)
 
 def Solve(inputFile, combine = False):
+	# Python lacks a decent way of deinterleaving or transposing two lists,
+	# so instead we save as a list to allow reuse without loading the file
+	# again.
 	lines = list(Parse(inputFile))
 
 	left = [x[0] for x in lines]
+	
 	if not combine:
 		# Part 1
 		left.sort()
