@@ -1,0 +1,11 @@
+name: AoC 2024 Review
+run-name: Running latest changes to AoC 2024 solutions
+on: push
+jobs:
+	Download-Daily-Inputs:
+		runs-on: ubuntu-latest
+		steps:
+			-	name: Apply personal cookie
+				env:
+					SESSION: ${{ secrets.SESSION }}
+				run: echo "$SESSION" > .session
