@@ -17,5 +17,11 @@ jobs:
         env:
           SESSION: ${{ secrets.SESSION }}
         run: echo "$SESSION" > .session
-      - name: Test
-        run: ls -a .
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          cache: pip
+      - name: Grab Python Packages
+        run: pip install -r tools/requirements.txt
+      - name: Run Script
+        run: tools/grab_day_inputs.py 2024
