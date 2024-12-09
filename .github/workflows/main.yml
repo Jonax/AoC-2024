@@ -29,9 +29,10 @@ jobs:
           path: inputs
           key: inputs-2024
       - name: Run Script
-        run: python tools/grab_day_inputs.py 2024
-      - name: Debug
-        run: ls -lRa
+        run: |
+          set +e
+          python tools/grab_day_inputs.py 2024
+          echo "exitcode=$?" >> $GITHUB_OUTPUT
       - name: Save Daily Inputs
         uses: actions/cache/save@v4
         with:
