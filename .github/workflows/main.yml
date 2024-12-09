@@ -41,3 +41,4 @@ jobs:
         with:
           path: inputs
           key: inputs-2024
+        if: steps.run-inputs-script.outputs.exitcode > 0
