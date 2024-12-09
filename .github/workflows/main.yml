@@ -16,7 +16,7 @@ jobs:
       - name: Apply personal cookie
         env:
           SESSION: ${{ secrets.SESSION }}
-        run: echo "$SESSION" > .session
+        run: echo "$SESSION" > tools/.session
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
