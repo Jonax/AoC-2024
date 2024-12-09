@@ -44,7 +44,7 @@ def DownloadDayInput(session, year, day):
 	contents = response.raw.read()
 	if response.headers.get("Content-Encoding") == "gzip":
 		contents = gzip.decompress(contents)
-	
+
 	with open(inputPath, "w") as outFile:
 		outFile.write(contents.decode("utf-8").strip())
 
@@ -68,6 +68,7 @@ if __name__ == "__main__":
 		session = inFile.read().strip()
 	assert session != None
 
+	numNewFiles = 0
 	for day, state in GetYearProgress(session, year).items():
 		if state == -1:
 			continue
@@ -87,3 +88,7 @@ if __name__ == "__main__":
 		print(f"[Day {day}] {dayStatus}, {inputStatus}")
 		if not inputDownloaded:
 			DownloadDayInput(session, year, day)
+			numNewFiles += 1
+
+	if numNewFiles != 0:
+		sys.exit(numNewFiles)
