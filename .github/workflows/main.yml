@@ -21,9 +21,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           cache: pip
-      - run: ls -la tools
-      - run: chmod +x tools/grab_day_inputs.py
       - name: Grab Python Packages
         run: pip install -r tools/requirements.txt
       - name: Run Script
-        run: tools/grab_day_inputs.py 2024
+        run: python tools/grab_day_inputs.py 2024
