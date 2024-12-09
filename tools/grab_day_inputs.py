@@ -91,4 +91,7 @@ if __name__ == "__main__":
 			numNewFiles += 1
 
 	if numNewFiles != 0:
+		print(f"New files so exit code should be {numNewFiles}")
 		sys.exit(numNewFiles)
+
+	print(f"No new files so exit code should be 0")
