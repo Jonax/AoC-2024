@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
 	session = None
 	with open("tools/.session") as inFile:
-		session = inFile.read()
+		session = inFile.read().strip()
 	assert session != None
 
 	for day, state in GetYearProgress(session, year).items():
