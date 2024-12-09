@@ -23,8 +23,11 @@ def GetYearProgress(session, year):
 		if "calendar-verycomplete" in classes:
 			assert activeDay.get("aria-label") == f"Day {i}, two stars"
 			days[i] = 2
+		elif "calendar-complete" in classes:
+			assert activeDay.get("aria-label") == f"Day {i}, one star"
+			days[i] = 1
 		else:
-			raise Exception(f"Unrecognised classes: {classes}")
+			days[i] = 0
 
 	return days
 
