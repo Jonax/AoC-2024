@@ -163,3 +163,4 @@ cython_debug/
 
 # AoC filter to exclude input data
 Day*_Input.txt
+.session
