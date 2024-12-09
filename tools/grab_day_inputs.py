@@ -44,8 +44,7 @@ def DownloadDayInput(session, year, day):
 	contents = response.raw.read()
 	if response.headers.get("Content-Encoding") == "gzip":
 		contents = gzip.decompress(contents)
-
-	print(f"Saving to {inputPath} / {os.path.abspath(inputPath)}...")
+	
 	with open(inputPath, "w") as outFile:
 		outFile.write(contents.decode("utf-8").strip())
 
