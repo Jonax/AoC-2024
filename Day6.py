@@ -1,16 +1,9 @@
-import operator
-import os
-import re
-from io import StringIO
-from math import prod
-from functools import cmp_to_key
-
 def Parse(inputFile):
 	obstacles = set()
 	guard = None
 
 	with open(inputFile) as inFile:
-		grid = [l.strip() for l in inFile.readlines()]
+		grid = [line.strip() for line in inFile.readlines()]
 		height = len(grid)
 		width = len(grid[0])
 
@@ -19,7 +12,7 @@ def Parse(inputFile):
 				if c == "#":
 					obstacles.add((x, y))
 				elif c == "^":
-					assert guard == None
+					assert guard is None
 					guard = (x, y)
 
 	return guard, (width, height), obstacles
