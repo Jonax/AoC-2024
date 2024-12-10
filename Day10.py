@@ -1,10 +1,3 @@
-class Node():
-	def __init__(self, position, height):
-		self.position = position
-		self.height = int(height)
-
-		self.next = set()
-
 def Parse(inputFile):
 	nodes = {}
 
@@ -14,28 +7,32 @@ def Parse(inputFile):
 				if h == ".":
 					continue
 
-				node = Node(position = (x, y), height = h)
-				assert node.position not in nodes
+				node = {
+					"position": (x, y),
+					"height": int(h),
+					"next": []
+				}
 
-				nodes[node.position] = node
+				assert node["position"] not in nodes
+				nodes[node["position"]] = node
 
 				if x > 0:
 					left = nodes.get((x - 1, y))
 					if left != None:
 						# If either node is the next height up from the other, link them in ascending direction.
-						if left.height == node.height + 1:
-							node.next.add(left)
-						elif node.height == left.height + 1:
-							left.next.add(node)
+						if left["height"] == node["height"] + 1:
+							node["next"].append(left)
+						elif node["height"] == left["height"] + 1:
+							left["next"].append(node)
 
 				if y > 0:
 					up = nodes.get((x, y - 1))
 					if up != None:
 						# If either node is the next height up from the other, link them in ascending direction.
-						if up.height == node.height + 1:
-							node.next.add(up)
-						elif node.height == up.height + 1:
-							up.next.add(node)
+						if up["height"] == node["height"] + 1:
+							node["next"].append(up)
+						elif node["height"] == up["height"] + 1:
+							up["next"].append(node)
 
 	return nodes
 
@@ -48,14 +45,14 @@ def ExploreTrailhead(startPoint):
 		route = stack.pop()
 		currentPosition = route[-1]
 
-		for nextPoint in currentPosition.next:
+		for nextPoint in currentPosition["next"]:
 			nextRoute = route + [nextPoint]
 
-			if nextPoint.height == 9:
+			if nextPoint["height"] == 9:
 				# Once a complete route has been found, yield it back to caller.  
 				yield nextRoute
 			else:
-				assert 0 <= nextPoint.height < 9, f"Unexpected height: {nextPoint.height}"
+				assert 0 <= nextPoint["height"] < 9, f"Unexpected height: {nextPoint["height"]}"
 				stack.append(nextRoute)
 
 def Solve(inputFile, countDistinctRoutes = False):
@@ -64,13 +61,13 @@ def Solve(inputFile, countDistinctRoutes = False):
 	# First, use a list to build a stack - This way, we can avoid extensive recursion. 
 	# We'll be going DFS over BFS so exhaust starting nodes quicker, so we'll treat it like a stack 
 	# rather than a queue.
-	startingPoints = [pn for pn in pathNodes.values() if pn.height == 0]
+	startingPoints = [pn for pn in pathNodes.values() if pn["height"] == 0]
 
 	# By default, count all distinct routes for each trailhead.  
 	scoringFunc = len
 	if not countDistinctRoutes:
 		# If we're not counting distincts (for Part 1), instead count all the distinct endpoints.  
-		scoringFunc = lambda l: len(set(r[-1] for r in l))
+		scoringFunc = lambda l: len(set(r[-1]["position"] for r in l))
 
 	return sum(scoringFunc(list(ExploreTrailhead(start))) for start in startingPoints)
 
