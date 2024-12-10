@@ -1,7 +1,4 @@
 import operator
-import os
-import re
-from collections import Counter
 from io import StringIO
 from math import prod
 

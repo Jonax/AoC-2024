@@ -18,7 +18,7 @@ def Parse(inputFile):
 
 				if x > 0:
 					left = nodes.get((x - 1, y))
-					if left != None:
+					if left is not None:
 						# If either node is the next height up from the other, link them in ascending direction.
 						if left["height"] == node["height"] + 1:
 							node["next"].append(left)
@@ -27,7 +27,7 @@ def Parse(inputFile):
 
 				if y > 0:
 					up = nodes.get((x, y - 1))
-					if up != None:
+					if up is not None:
 						# If either node is the next height up from the other, link them in ascending direction.
 						if up["height"] == node["height"] + 1:
 							node["next"].append(up)
@@ -67,7 +67,7 @@ def Solve(inputFile, countDistinctRoutes = False):
 	scoringFunc = len
 	if not countDistinctRoutes:
 		# If we're not counting distincts (for Part 1), instead count all the distinct endpoints.  
-		scoringFunc = lambda l: len(set(r[-1]["position"] for r in l))
+		scoringFunc = lambda routes: len(set(r[-1]["position"] for r in routes))
 
 	return sum(scoringFunc(list(ExploreTrailhead(start))) for start in startingPoints)
 
