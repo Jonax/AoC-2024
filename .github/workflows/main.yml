@@ -44,4 +44,4 @@ jobs:
         uses: astral-sh/ruff-action@v2
         with:
           version: "0.8.2"
-          args: ruff check --exit-zero --output-format=github
+          args: check --exit-zero --output-format=github
