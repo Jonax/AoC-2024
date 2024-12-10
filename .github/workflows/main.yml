@@ -40,9 +40,8 @@ jobs:
           path: inputs
           key: inputs-2024
         if: steps.run-inputs-script.outputs.exitcode > 0
-      - name: Installing Ruff
+      - name: Linting
         uses: astral-sh/ruff-action@v2
         with:
           version: "0.8.2"
-      - name: Linting
-        run: ruff check --exit-zero --output-format=github
+          args: ruff check --exit-zero --output-format=github
