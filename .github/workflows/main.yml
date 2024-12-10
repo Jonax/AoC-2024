@@ -5,7 +5,7 @@ on:
   - push
   - workflow_dispatch
 jobs:
-  Verify-Solutions:
+  setup:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,7 +23,7 @@ jobs:
           cache: pip
       - name: Grab Python Packages
         run: pip install -r tools/requirements.txt
-      - name: Retrieve Daily Inputs
+      - name: Pull Inputs From Cache
         uses: actions/cache/restore@v4
         with:
           path: inputs
@@ -34,14 +34,52 @@ jobs:
           set +e
           python tools/grab_day_inputs.py 2024
           echo "exitcode=$?" >> $GITHUB_OUTPUT
-      - name: Save Daily Inputs
+      - name: Save Inputs To Cache
         uses: actions/cache/save@v4
         with:
           path: inputs
           key: inputs-2024
         if: steps.run-inputs-script.outputs.exitcode > 0
+      - name: Push to Artifacts
+        id: push-answers
+        uses: actions/upload-artifact@v4
+        with:
+          name: answers
+          path: |
+            *.py
+            *.txt
+            inputs/*.txt
+          if-no-files-found: error
+          compression-level: 9
+          overwrite: true
+          retention-days: 1
+
+  linting:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull from Artifacts
+        uses: actions/download-artifacts@v4
+        with:
+          name: answers
+        merge-multiple: true
       - name: Linting
         uses: astral-sh/ruff-action@v2
         with:
           version: "0.8.2"
           args: check --exit-zero --output-format=github
+
+  cleanup:
+    needs: linting
+    if : ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clean Up Mid-Job Artifacts
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.actions.deleteArtifact({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              artifact_id: ${{ jobs.setup.steps.push-answers.outputs.artifact-id }}
+            });
