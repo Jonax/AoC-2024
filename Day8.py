@@ -2,7 +2,6 @@ from itertools import combinations
 
 def Parse(inputFile):
 	frequencies = {}
-	guard = None
 
 	with open(inputFile) as inFile:
 		grid = [line.strip() for line in inFile.readlines()]
