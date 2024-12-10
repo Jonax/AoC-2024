@@ -3,7 +3,7 @@ import os
 import requests
 import sys
 from bs4 import BeautifulSoup
-from datetime import date, datetime
+from datetime import date
 
 def GetYearProgress(session, year):
 	response = requests.get(
@@ -69,7 +69,7 @@ if __name__ == "__main__":
 	session = None
 	with open("tools/.session") as inFile:
 		session = inFile.read().strip()
-	assert session != None
+	assert session is not None
 
 	numNewFiles = 0
 	for day, state in GetYearProgress(session, year).items():
