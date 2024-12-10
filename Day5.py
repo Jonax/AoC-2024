@@ -1,7 +1,3 @@
-import os
-import re
-from io import StringIO
-from math import prod
 from functools import cmp_to_key
 
 def Parse(inputFile):
