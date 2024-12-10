@@ -1,9 +1,3 @@
-import operator
-import os
-import re
-from io import StringIO
-from math import prod
-from functools import cmp_to_key
 from itertools import combinations
 
 def Parse(inputFile):
@@ -11,7 +5,7 @@ def Parse(inputFile):
 	guard = None
 
 	with open(inputFile) as inFile:
-		grid = [l.strip() for l in inFile.readlines()]
+		grid = [line.strip() for line in inFile.readlines()]
 		height = len(grid)
 		width = len(grid[0])
 
