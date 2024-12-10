@@ -49,7 +49,7 @@ def Solve(inputFile, contiguous = True):
 
 			# If no block could be found, or the block is after the target, then there's no 
 			# valid block to move into. Go to the next target.  
-			if availableBlock == None or availableBlock["position"] >= target["position"]:
+			if availableBlock is None or availableBlock["position"] >= target["position"]:
 				break
 
 			# Figure out how much data can be transferred in one go.  
