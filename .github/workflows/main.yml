@@ -62,7 +62,7 @@ jobs:
         uses: actions/download-artifacts@v4
         with:
           name: answers
-        merge-multiple: true
+          merge-multiple: true
       - name: Linting
         uses: astral-sh/ruff-action@v2
         with:
