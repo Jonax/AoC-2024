@@ -1,17 +1,9 @@
-from itertools import batched, pairwise
-
 class Node():
 	def __init__(self, position, height):
 		self.position = position
 		self.height = int(height)
 
 		self.next = set()
-
-	def __str__(self):
-		return f"{self.position[0]}, {self.position[1]} [{self.height}]"
-
-	def __repr__(self):
-		return f"{self.position[0]}, {self.position[1]} [{self.height}]"
 
 def Parse(inputFile):
 	nodes = {}
@@ -47,31 +39,26 @@ def Parse(inputFile):
 
 	return nodes
 
-def EvaluateStartingPoint(startPoint):
-	trailsConfirmed = 0
-
-	stack = set([startPoint])
-	encountered = set(stack)
+def ExploreTrailhead(startPoint):
+	# We go with DFS over BFS to exhaust whole areas earlier rather than keep them around. 
+	# Ergo, a stack rather than a queue.  
+	stack = [ [startPoint] ]
 
 	while any(stack):
-		current = stack.pop()
+		route = stack.pop()
+		currentPosition = route[-1]
 
-		for nextPoint in current.next:
-			if nextPoint in encountered:
-				continue
-
-			assert nextPoint not in stack
+		for nextPoint in currentPosition.next:
+			nextRoute = route + [nextPoint]
 
 			if nextPoint.height == 9:
-				trailsConfirmed += 1
+				# Once a complete route has been found, yield it back to caller.  
+				yield nextRoute
 			else:
 				assert 0 <= nextPoint.height < 9, f"Unexpected height: {nextPoint.height}"
-				stack.add(nextPoint)
-			encountered.add(nextPoint)
+				stack.append(nextRoute)
 
-	return trailsConfirmed
-
-def Solve(inputFile, contiguous = True):
+def Solve(inputFile, countDistinctRoutes = False):
 	pathNodes = Parse(inputFile)
 
 	# First, use a list to build a stack - This way, we can avoid extensive recursion. 
@@ -79,17 +66,24 @@ def Solve(inputFile, contiguous = True):
 	# rather than a queue.
 	startingPoints = [pn for pn in pathNodes.values() if pn.height == 0]
 
-	return sum(EvaluateStartingPoint(start) for start in startingPoints)
+	# By default, count all distinct routes for each trailhead.  
+	scoringFunc = len
+	if not countDistinctRoutes:
+		# If we're not counting distincts (for Part 1), instead count all the distinct endpoints.  
+		scoringFunc = lambda l: len(set(r[-1] for r in l))
+
+	return sum(scoringFunc(list(ExploreTrailhead(start))) for start in startingPoints)
 
 if __name__ == "__main__":
-	#assert Solve("Day10_ExampleA.txt") == 1
-	#import sys
-	#sys.exit()
+	assert Solve("Day10_ExampleA.txt") == 1
 	assert Solve("Day10_ExampleB.txt") == 2
 	assert Solve("Day10_ExampleC.txt") == 4
 	assert Solve("Day10_ExampleD.txt") == 3
 	assert Solve("Day10_ExampleE.txt") == 36
 	assert Solve("inputs/Day10_input.txt") == 611
 
-	#assert Solve("Day9_Example.txt") == 2858
-	#assert Solve("inputs/Day09_input.txt") == 6415666220005
+	assert Solve("Day10_ExampleF.txt", countDistinctRoutes = True) == 3
+	assert Solve("Day10_ExampleG.txt", countDistinctRoutes = True) == 13
+	assert Solve("Day10_ExampleH.txt", countDistinctRoutes = True) == 227
+	assert Solve("Day10_ExampleE.txt", countDistinctRoutes = True) == 81
+	assert Solve("inputs/Day10_input.txt", countDistinctRoutes = True) == 1380
