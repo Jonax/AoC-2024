@@ -63,11 +63,10 @@ def Solve(inputFile, countDistinctRoutes = False):
 	# rather than a queue.
 	startingPoints = [pn for pn in pathNodes.values() if pn["height"] == 0]
 
-	# By default, count all distinct routes for each trailhead.  
-	scoringFunc = len
-	if not countDistinctRoutes:
-		# If we're not counting distincts (for Part 1), instead count all the distinct endpoints.  
-		scoringFunc = lambda routes: len(set(r[-1]["position"] for r in routes))
+	# Determine how trailheads are scored based on the mode used.
+	scoringFunc = countDistinctRoutes \
+					and len \
+					or (lambda routes: len(set(r[-1]["position"] for r in routes)))
 
 	return sum(scoringFunc(list(ExploreTrailhead(start))) for start in startingPoints)
 
