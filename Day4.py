@@ -4,7 +4,7 @@ from math import prod
 
 def Parse(inputFile):
 	with open(inputFile) as inFile:
-		return [l.strip() for l in inFile.readlines()]
+		return [line.strip() for line in inFile.readlines()]
 
 def FindPossibleDirections(x, y, w, h, strLength):
 	left = x - strLength >= -1
@@ -55,8 +55,8 @@ def FindOccurances(grid, phrase):
 	numSteps = len(phrase) - 1
 
 	for y, line in enumerate(grid):
-		for x, l in enumerate(line):
-			if l != phrase[0]:
+		for x, c in enumerate(line):
+			if c != phrase[0]:
 				continue
 
 			for direction in FindPossibleDirections(x, y, len(grid[0]), len(grid), len(phrase)):
