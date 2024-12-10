@@ -36,24 +36,26 @@ def Parse(inputFile):
 
 	return nodes
 
-def ExploreTrailhead(startPoint):
-	# We go with DFS over BFS to exhaust whole areas earlier rather than keep them around. 
-	# Ergo, a stack rather than a queue.  
-	stack = [ [startPoint] ]
-
+def ExploreTrailhead(startPoint, distinct):
+	# We go with BFS since we don't need to return the paths we find, just the number that *have*
+	# been found.
+	completed = []
+	
+	stack = [ startPoint ]
 	while any(stack):
-		route = stack.pop()
-		currentPosition = route[-1]
+		node = stack.pop()
 
-		for nextPoint in currentPosition["next"]:
-			nextRoute = route + [nextPoint]
-
+		for nextPoint in node["next"]:
 			if nextPoint["height"] == 9:
-				# Once a complete route has been found, yield it back to caller.  
-				yield nextRoute
+				completed.append(nextPoint["position"])
 			else:
 				assert 0 <= nextPoint["height"] < 9, f"Unexpected height: {nextPoint["height"]}"
-				stack.append(nextRoute)
+				stack.append(nextPoint)
+	
+	# We could've potentially do the distinct check during the trail following...but as the graph is 
+	# fairly shallow and we don't need to store the full routes, it doesn't really save much in the 
+	# grand scale of things. 
+	return len(distinct and completed or set(completed))
 
 def Solve(inputFile, countDistinctRoutes = False):
 	pathNodes = Parse(inputFile)
@@ -63,12 +65,7 @@ def Solve(inputFile, countDistinctRoutes = False):
 	# rather than a queue.
 	startingPoints = [pn for pn in pathNodes.values() if pn["height"] == 0]
 
-	# Determine how trailheads are scored based on the mode used.
-	scoringFunc = countDistinctRoutes \
-					and len \
-					or (lambda routes: len(set(r[-1]["position"] for r in routes)))
-
-	return sum(scoringFunc(list(ExploreTrailhead(start))) for start in startingPoints)
+	return sum(ExploreTrailhead(start, countDistinctRoutes) for start in startingPoints)
 
 if __name__ == "__main__":
 	assert Solve("Day10_ExampleA.txt") == 1
