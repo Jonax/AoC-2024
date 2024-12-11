@@ -87,9 +87,10 @@ def PartB(inputFile):
 
 	return numMatches
 
-assert PartA("Day4_ExampleA.txt") == 4
-assert PartA("Day4_ExampleB.txt") == 18
-assert PartA("inputs/Day04_input.txt") == 2571
+if __name__ == "__main__":
+	assert PartA("Day4_ExampleA.txt") == 4
+	assert PartA("Day4_ExampleB.txt") == 18
+	assert PartA("inputs/Day04_input.txt") == 2571
 
-assert PartB("Day4_ExampleB.txt") == 9
-print(PartB("inputs/Day04_input.txt"))
+	assert PartB("Day4_ExampleB.txt") == 9
+	assert PartB("inputs/Day04_input.txt") == 1992

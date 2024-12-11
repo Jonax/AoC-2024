@@ -64,9 +64,10 @@ def Solve(inputFile, limited = False):
 
 	return len(allAntinodes)
 
-assert Solve("Day8_ExampleA.txt", limited = True) == 14
-assert Solve("inputs/Day08_input.txt", limited = True) == 214
+if __name__ == "__main__":
+	assert Solve("Day8_ExampleA.txt", limited = True) == 14
+	assert Solve("inputs/Day08_input.txt", limited = True) == 214
 
-assert Solve("Day8_ExampleB.txt") == 9
-assert Solve("Day8_ExampleA.txt") == 34
-assert Solve("inputs/Day08_input.txt") == 809
+	assert Solve("Day8_ExampleB.txt") == 9
+	assert Solve("Day8_ExampleA.txt") == 34
+	assert Solve("inputs/Day08_input.txt") == 809

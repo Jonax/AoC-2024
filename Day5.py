@@ -33,8 +33,9 @@ def Solve(inputFile, fixIncorrects = False):
 
 	return result
 
-assert Solve("Day5_Example.txt") == 143
-assert Solve("inputs/Day05_input.txt") == 4774
+if __name__ == "__main__:"
+	assert Solve("Day5_Example.txt") == 143
+	assert Solve("inputs/Day05_input.txt") == 4774
 
-assert Solve("Day5_Example.txt", fixIncorrects = True) == 123
-assert Solve("inputs/Day05_input.txt", fixIncorrects = True) == 6004
+	assert Solve("Day5_Example.txt", fixIncorrects = True) == 123
+	assert Solve("inputs/Day05_input.txt", fixIncorrects = True) == 6004
