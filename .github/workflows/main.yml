@@ -5,7 +5,7 @@ on:
   - workflow_dispatch
 jobs:
   setup:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
         with:
@@ -20,6 +20,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
+          python-version: '3.12'
           cache: pip
       - name: Grab Python Packages
         run: pip install -r tools/requirements.txt
@@ -57,7 +58,7 @@ jobs:
 
   linting:
     needs: setup
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Pull from Artifacts
         uses: actions/download-artifact@v4
@@ -82,6 +83,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
+          python-version: '3.12'
           cache: pip
       - name: Grab Python Packages
         run: pip install --upgrade pytest
@@ -99,7 +101,7 @@ jobs:
   cleanup:
     needs: [setup, linting, testing]
     if : always()
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Clean Up Mid-Job Artifacts
         uses: geekyeggo/delete-artifact@v5
