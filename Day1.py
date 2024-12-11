@@ -2,6 +2,8 @@ import pytest
 import re
 from collections import Counter
 
+import os
+
 '''
 APPROACH:
 	Parse the input into two columns of files.
