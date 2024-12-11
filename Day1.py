@@ -53,7 +53,7 @@ def Solve(inputFile, combine = False):
 
 def test_part_a():
 	print(os.getcwd())
-	assert Solve("Day1_Example.txt") == 11
+	assert Solve("day1_Example.txt") == 11
 
 	assert Solve("inputs/Day01_input.txt") == 1941353
 
