@@ -33,7 +33,7 @@ def Solve(inputFile, fixIncorrects = False):
 
 	return result
 
-if __name__ == "__main__:"
+if __name__ == "__main__":
 	assert Solve("Day5_Example.txt") == 143
 	assert Solve("inputs/Day05_input.txt") == 4774
 
