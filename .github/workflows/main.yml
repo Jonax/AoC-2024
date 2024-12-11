@@ -91,7 +91,9 @@ jobs:
         with:
           files: test_report.xml
           check_name: Daily Results
-
+    permissions:
+      checks: write
+  
   cleanup:
     needs: [setup, linting, testing]
     if : always()
