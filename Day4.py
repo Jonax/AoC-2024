@@ -1,4 +1,5 @@
 import operator
+import pytest
 from io import StringIO
 from math import prod
 
@@ -87,10 +88,16 @@ def PartB(inputFile):
 
 	return numMatches
 
-if __name__ == "__main__":
+def test_part_a():
 	assert PartA("Day4_ExampleA.txt") == 4
 	assert PartA("Day4_ExampleB.txt") == 18
+
 	assert PartA("inputs/Day04_input.txt") == 2571
 
+def test_part_b():
 	assert PartB("Day4_ExampleB.txt") == 9
+
 	assert PartB("inputs/Day04_input.txt") == 1992
+
+if __name__ == "__main__":
+	pytest.main(["-v", __file__])

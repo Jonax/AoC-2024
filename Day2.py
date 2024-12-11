@@ -1,3 +1,5 @@
+import pytest
+
 '''
 APPROACH:
 	Parse the input into lines of integer sequences.  
@@ -72,9 +74,15 @@ def Solve(inputFile, maxTolerance = 0):
 	# errors deemed acceptable.  
 	return sum(GetReportSafety(report) <= maxTolerance for report in Parse(inputFile))
 
-if __name__ == "__main__":
+def test_part_a():
 	assert Solve("Day2_Example.txt") == 2
+
 	assert Solve("inputs/Day02_input.txt") == 483
 
+def test_part_b():
 	assert Solve("Day2_Example.txt", maxTolerance = 1) == 4
+
 	assert Solve("inputs/Day02_input.txt", maxTolerance = 1) == 528
+
+if __name__ == "__main__":
+	pytest.main(["-v", __file__])

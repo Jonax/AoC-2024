@@ -1,3 +1,5 @@
+import pytest
+
 def Parse(inputFile):
 	nodes = {}
 
@@ -67,16 +69,22 @@ def Solve(inputFile, countDistinctRoutes = False):
 
 	return sum(ExploreTrailhead(start, countDistinctRoutes) for start in startingPoints)
 
-if __name__ == "__main__":
+def test_part_a():
 	assert Solve("Day10_ExampleA.txt") == 1
 	assert Solve("Day10_ExampleB.txt") == 2
 	assert Solve("Day10_ExampleC.txt") == 4
 	assert Solve("Day10_ExampleD.txt") == 3
 	assert Solve("Day10_ExampleE.txt") == 36
+
 	assert Solve("inputs/Day10_input.txt") == 611
 
+def test_part_b():
 	assert Solve("Day10_ExampleF.txt", countDistinctRoutes = True) == 3
 	assert Solve("Day10_ExampleG.txt", countDistinctRoutes = True) == 13
 	assert Solve("Day10_ExampleH.txt", countDistinctRoutes = True) == 227
 	assert Solve("Day10_ExampleE.txt", countDistinctRoutes = True) == 81
+
 	assert Solve("inputs/Day10_input.txt", countDistinctRoutes = True) == 1380
+
+if __name__ == "__main__":
+	pytest.main(["-v", __file__])

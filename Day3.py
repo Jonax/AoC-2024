@@ -1,3 +1,4 @@
+import pytest
 import re
 from math import prod
 
@@ -53,9 +54,15 @@ def Solve(inputFile, toggle = False):
 	# Return running total
 	return result
 
-if __name__ == "__main__":
+def test_part_a():
 	assert Solve("Day3_ExampleA.txt") == 161
+
 	assert Solve("inputs/Day03_input.txt") == 187825547
 
+def test_part_b():
 	assert Solve("Day3_ExampleB.txt", toggle = True) == 48
+
 	assert Solve("inputs/Day03_input.txt", toggle = True) == 85508223
+
+if __name__ == "__main__":
+	pytest.main(["-v", __file__])

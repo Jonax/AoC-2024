@@ -1,3 +1,4 @@
+import pytest
 from itertools import product
 
 def Parse(inputFile):
@@ -33,9 +34,15 @@ def Evaluate(values, targetValue, concatenate):
 def Solve(inputFile, concatenate = False):
 	return sum(key for key, values in Parse(inputFile) if Evaluate(values, key, concatenate))
 
-if __name__ == "__main__":
+def test_part_a():
 	assert Solve("Day7_ExampleA.txt") == 3749
+
 	assert Solve("inputs/Day07_input.txt") == 2501605301465
 
+def test_part_b():
 	assert Solve("Day7_ExampleB.txt", concatenate = True) == 11387
+
 	assert Solve("inputs/Day07_input.txt", concatenate = True) == 44841372855953
+
+if __name__ == "__main__":
+	pytest.main(["-v", __file__])

@@ -1,3 +1,4 @@
+import pytest
 from itertools import combinations
 
 def Parse(inputFile):
@@ -64,10 +65,16 @@ def Solve(inputFile, limited = False):
 
 	return len(allAntinodes)
 
-if __name__ == "__main__":
+def test_part_a():
 	assert Solve("Day8_ExampleA.txt", limited = True) == 14
+
 	assert Solve("inputs/Day08_input.txt", limited = True) == 214
 
+def test_part_b():
 	assert Solve("Day8_ExampleB.txt") == 9
 	assert Solve("Day8_ExampleA.txt") == 34
+
 	assert Solve("inputs/Day08_input.txt") == 809
+
+if __name__ == "__main__":
+	pytest.main(["-v", __file__])

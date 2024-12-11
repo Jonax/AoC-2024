@@ -1,3 +1,4 @@
+import pytest
 from functools import cmp_to_key
 
 def Parse(inputFile):
@@ -33,9 +34,15 @@ def Solve(inputFile, fixIncorrects = False):
 
 	return result
 
-if __name__ == "__main__":
+def test_part_a():
 	assert Solve("Day5_Example.txt") == 143
+
 	assert Solve("inputs/Day05_input.txt") == 4774
 
+def test_part_b():
 	assert Solve("Day5_Example.txt", fixIncorrects = True) == 123
+
 	assert Solve("inputs/Day05_input.txt", fixIncorrects = True) == 6004
+
+if __name__ == "__main__":
+	pytest.main(["-v", __file__])

@@ -1,3 +1,4 @@
+import pytest
 from itertools import batched, pairwise
 
 def Parse(inputFile):
@@ -90,9 +91,15 @@ def Solve(inputFile, contiguous = True):
 
 	return checksum
 
-if __name__ == "__main__":
+def test_part_a():
 	assert Solve("Day9_Example.txt", contiguous = False) == 1928
+
 	assert Solve("inputs/Day09_input.txt", contiguous = False) == 6398252054886
 
+def test_part_b():
 	assert Solve("Day9_Example.txt") == 2858
+
 	assert Solve("inputs/Day09_input.txt") == 6415666220005
+
+if __name__ == "__main__":
+	pytest.main(["-v", __file__])
