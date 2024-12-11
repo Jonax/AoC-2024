@@ -1,5 +1,4 @@
 name: AoC 2024 Review
-run-name: Running latest changes to AoC 2024 solutions
 
 on:
   - push
