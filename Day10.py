@@ -49,9 +49,9 @@ def ExploreTrailhead(startPoint, distinct):
 			if nextPoint["height"] == 9:
 				completed.append(nextPoint["position"])
 			else:
-				assert 0 <= nextPoint["height"] < 9, f"Unexpected height: {nextPoint["height"]}"
+				assert 0 <= nextPoint["height"] < 9
 				stack.append(nextPoint)
-	
+
 	# We could've potentially do the distinct check during the trail following...but as the graph is 
 	# fairly shallow and we don't need to store the full routes, it doesn't really save much in the 
 	# grand scale of things. 
