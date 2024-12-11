@@ -50,14 +50,16 @@ def Solve(inputFile, combine = False):
 	return sum([a * right[a] for a in left])
 
 def test_part_a():
+	print(os.getcwd())
 	assert Solve("Day1_Example.txt") == 11
-	
+
 	assert Solve("inputs/Day01_input.txt") == 1941353
 
 def test_part_b():
 	assert Solve("Day1_Example.txt", combine = True) == 31
-	
+
 	assert Solve("inputs/Day01_input.txt", combine = True) == 22539317
 
 if __name__ == "__main__":
+	print(os.getcwd())
 	pytest.main(["-v", __file__])

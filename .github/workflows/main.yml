@@ -83,8 +83,12 @@ jobs:
           cache: pip
       - name: Grab Python Packages
         run: pip install --upgrade pytest
+      - name: Debug
+        run: |
+          where python
+          where pytest
       - name: Execute Unit Tests
-        run: pytest -v --junit-xml=test_report.xml *.py
+        run: pytest -s -v --junit-xml=test_report.xml *.py
       - name: Upload Test Report
         uses: EnricoMi/publish-unit-test-result-action/linux@v2
         if: always()
