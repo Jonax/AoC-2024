@@ -84,7 +84,7 @@ jobs:
       - name: Grab Python Packages
         run: pip install --upgrade pytest
       - name: Execute Unit Tests
-        run: pytest -v --junit-xml=test_report.xml *.py
+        run: pytest -v --color=yes --junit-xml=test_report.xml *.py
       - name: Upload Test Report
         uses: EnricoMi/publish-unit-test-result-action/linux@v2
         if: always()
@@ -93,7 +93,7 @@ jobs:
           check_name: Daily Results
     permissions:
       checks: write
-  
+
   cleanup:
     needs: [setup, linting, testing]
     if : always()
