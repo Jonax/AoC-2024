@@ -68,9 +68,33 @@ jobs:
           version: "0.8.2"
           args: check --exit-zero --output-format=github
 
+  testing:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull from Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: answers
+          merge-multiple: true
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          cache: pip
+      - name: Grab Python Packages
+        run: pip install --upgrade pytest
+      - name: Execute Unit Tests
+        run: pytest -v --junit-xml=test_report.xml *.py
+      - name: Upload Test Report
+        uses: EnricoMi/publish-unit-test-result-action/linux@v2
+        if: always()
+        with:
+          files: test_report.xml
+          check_name: Daily Results
+
   cleanup:
-    needs: [setup, linting]
-    if : ${{ always() }}
+    needs: [setup, linting, testing]
+    if : always()
     runs-on: ubuntu-latest
     steps:
       - name: Clean Up Mid-Job Artifacts
