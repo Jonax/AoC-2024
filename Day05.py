@@ -35,12 +35,12 @@ def Solve(inputFile, fixIncorrects = False):
 	return result
 
 def test_part_a():
-	assert Solve("Day5_Example.txt") == 143
+	assert Solve("examples/Day05_Example.txt") == 143
 
 	assert Solve("inputs/Day05_input.txt") == 4774
 
 def test_part_b():
-	assert Solve("Day5_Example.txt", fixIncorrects = True) == 123
+	assert Solve("examples/Day05_Example.txt", fixIncorrects = True) == 123
 
 	assert Solve("inputs/Day05_input.txt", fixIncorrects = True) == 6004
 

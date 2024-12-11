@@ -12,6 +12,7 @@ jobs:
           sparse-checkout: |
             .
             tools
+            examples
       - name: Apply personal cookie
         env:
           SESSION: ${{ secrets.SESSION }}
@@ -48,6 +49,7 @@ jobs:
             *.py
             *.txt
             inputs/*.txt
+            examples/*.txt
           if-no-files-found: error
           compression-level: 9
           overwrite: true

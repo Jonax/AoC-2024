@@ -66,13 +66,13 @@ def Solve(inputFile, limited = False):
 	return len(allAntinodes)
 
 def test_part_a():
-	assert Solve("Day8_ExampleA.txt", limited = True) == 14
+	assert Solve("examples/Day08_ExampleA.txt", limited = True) == 14
 
 	assert Solve("inputs/Day08_input.txt", limited = True) == 214
 
 def test_part_b():
-	assert Solve("Day8_ExampleB.txt") == 9
-	assert Solve("Day8_ExampleA.txt") == 34
+	assert Solve("examples/Day08_ExampleB.txt") == 9
+	assert Solve("examples/Day08_ExampleA.txt") == 34
 
 	assert Solve("inputs/Day08_input.txt") == 809
 

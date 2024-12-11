@@ -92,12 +92,12 @@ def Solve(inputFile, contiguous = True):
 	return checksum
 
 def test_part_a():
-	assert Solve("Day9_Example.txt", contiguous = False) == 1928
+	assert Solve("examples/Day09_Example.txt", contiguous = False) == 1928
 
 	assert Solve("inputs/Day09_input.txt", contiguous = False) == 6398252054886
 
 def test_part_b():
-	assert Solve("Day9_Example.txt") == 2858
+	assert Solve("examples/Day09_Example.txt") == 2858
 
 	assert Solve("inputs/Day09_input.txt") == 6415666220005
 

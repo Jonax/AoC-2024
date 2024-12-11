@@ -50,12 +50,12 @@ def Solve(inputFile, combine = False):
 	return sum([a * right[a] for a in left])
 
 def test_part_a():
-	assert Solve("Day1_Example.txt") == 11
+	assert Solve("examples/Day01_Example.txt") == 11
 
 	assert Solve("inputs/Day01_input.txt") == 1941353
 
 def test_part_b():
-	assert Solve("Day1_Example.txt", combine = True) == 31
+	assert Solve("examples/Day01_Example.txt", combine = True) == 31
 
 	assert Solve("inputs/Day01_input.txt", combine = True) == 22539317
 

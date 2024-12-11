@@ -70,12 +70,12 @@ def Solve(inputFile, interfere = False):
 	return numMatches
 
 def test_part_a():
-	assert Solve("Day6_Example.txt") == 41
+	assert Solve("examples/Day06_Example.txt") == 41
 
 	assert Solve("inputs/Day06_input.txt") == 5199
 
 def test_part_b():
-	assert Solve("Day6_Example.txt", interfere = True) == 6
+	assert Solve("examples/Day06_Example.txt", interfere = True) == 6
 
 	assert Solve("inputs/Day06_input.txt", interfere = True) == 1915
 

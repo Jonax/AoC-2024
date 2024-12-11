@@ -35,12 +35,12 @@ def Solve(inputFile, concatenate = False):
 	return sum(key for key, values in Parse(inputFile) if Evaluate(values, key, concatenate))
 
 def test_part_a():
-	assert Solve("Day7_ExampleA.txt") == 3749
+	assert Solve("examples/Day07_ExampleA.txt") == 3749
 
 	assert Solve("inputs/Day07_input.txt") == 2501605301465
 
 def test_part_b():
-	assert Solve("Day7_ExampleB.txt", concatenate = True) == 11387
+	assert Solve("examples/Day07_ExampleB.txt", concatenate = True) == 11387
 
 	assert Solve("inputs/Day07_input.txt", concatenate = True) == 44841372855953
 

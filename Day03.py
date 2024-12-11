@@ -55,12 +55,12 @@ def Solve(inputFile, toggle = False):
 	return result
 
 def test_part_a():
-	assert Solve("Day3_ExampleA.txt") == 161
+	assert Solve("examples/Day03_ExampleA.txt") == 161
 
 	assert Solve("inputs/Day03_input.txt") == 187825547
 
 def test_part_b():
-	assert Solve("Day3_ExampleB.txt", toggle = True) == 48
+	assert Solve("examples/Day03_ExampleB.txt", toggle = True) == 48
 
 	assert Solve("inputs/Day03_input.txt", toggle = True) == 85508223
 

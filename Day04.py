@@ -89,13 +89,13 @@ def PartB(inputFile):
 	return numMatches
 
 def test_part_a():
-	assert PartA("Day4_ExampleA.txt") == 4
-	assert PartA("Day4_ExampleB.txt") == 18
+	assert PartA("examples/Day04_ExampleA.txt") == 4
+	assert PartA("examples/Day04_ExampleB.txt") == 18
 
 	assert PartA("inputs/Day04_input.txt") == 2571
 
 def test_part_b():
-	assert PartB("Day4_ExampleB.txt") == 9
+	assert PartB("examples/Day04_ExampleB.txt") == 9
 
 	assert PartB("inputs/Day04_input.txt") == 1992
 
