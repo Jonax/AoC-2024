@@ -70,16 +70,12 @@ jobs:
           args: check --exit-zero --output-format=github
 
   cleanup:
-    needs: linting
+    needs: [setup, linting]
     if : ${{ always() }}
     runs-on: ubuntu-latest
     steps:
       - name: Clean Up Mid-Job Artifacts
-        uses: actions/github-script@v7
+        uses: geekyeggo/delete-artifact@v5
         with:
-          script: |
-            github.rest.actions.deleteArtifact({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              artifact_id: ${{ jobs.setup.steps.push-answers.outputs.artifact-id }}
-            });
+          name: answers
+          failOnError: false
