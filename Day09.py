@@ -91,15 +91,23 @@ def Solve(inputFile, contiguous = True):
 
 	return checksum
 
-def test_part_a():
-	assert Solve("examples/Day09_Example.txt", contiguous = False) == 1928
+testCases = [
+	("examples/Day09_Example.txt", 1928),
+	("inputs/Day09_input.txt", 6398252054886)
+]
+@pytest.mark.parametrize(	"inputPath, expected", testCases, 
+							ids = [t[0].split("_")[-1].split(".")[0] for t in testCases])
+def test_part_a(inputPath, expected):
+	assert Solve(inputPath, contiguous = False) == expected
 
-	assert Solve("inputs/Day09_input.txt", contiguous = False) == 6398252054886
-
-def test_part_b():
-	assert Solve("examples/Day09_Example.txt") == 2858
-
-	assert Solve("inputs/Day09_input.txt") == 6415666220005
+testCases = [
+	("examples/Day09_Example.txt", 2858),
+	("inputs/Day09_input.txt", 6415666220005)
+]
+@pytest.mark.parametrize(	"inputPath, expected", testCases, 
+							ids = [t[0].split("_")[-1].split(".")[0] for t in testCases])
+def test_part_b(inputPath, expected):
+	assert Solve(inputPath) == expected
 
 if __name__ == "__main__":
 	pytest.main(["-v", __file__])

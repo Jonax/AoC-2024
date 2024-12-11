@@ -69,22 +69,30 @@ def Solve(inputFile, countDistinctRoutes = False):
 
 	return sum(ExploreTrailhead(start, countDistinctRoutes) for start in startingPoints)
 
-def test_part_a():
-	assert Solve("examples/Day10_ExampleA.txt") == 1
-	assert Solve("examples/Day10_ExampleB.txt") == 2
-	assert Solve("examples/Day10_ExampleC.txt") == 4
-	assert Solve("examples/Day10_ExampleD.txt") == 3
-	assert Solve("examples/Day10_ExampleE.txt") == 36
+testCases = [
+	("examples/Day10_ExampleA.txt", 1),
+	("examples/Day10_ExampleB.txt", 2),
+	("examples/Day10_ExampleC.txt", 4),
+	("examples/Day10_ExampleD.txt", 3),
+	("examples/Day10_ExampleE.txt", 36),
+	("inputs/Day10_input.txt", 611)
+]
+@pytest.mark.parametrize(	"inputPath, expected", testCases, 
+							ids = [t[0].split("_")[-1].split(".")[0] for t in testCases])
+def test_part_a(inputPath, expected):
+	assert Solve(inputPath) == expected
 
-	assert Solve("inputs/Day10_input.txt") == 611
-
-def test_part_b():
-	assert Solve("examples/Day10_ExampleF.txt", countDistinctRoutes = True) == 3
-	assert Solve("examples/Day10_ExampleG.txt", countDistinctRoutes = True) == 13
-	assert Solve("examples/Day10_ExampleH.txt", countDistinctRoutes = True) == 227
-	assert Solve("examples/Day10_ExampleE.txt", countDistinctRoutes = True) == 81
-
-	assert Solve("inputs/Day10_input.txt", countDistinctRoutes = True) == 1380
+testCases = [
+	("examples/Day10_ExampleF.txt", 3),
+	("examples/Day10_ExampleG.txt", 13),
+	("examples/Day10_ExampleH.txt", 227),
+	("examples/Day10_ExampleE.txt", 81),
+	("inputs/Day10_input.txt", 1380)
+]
+@pytest.mark.parametrize(	"inputPath, expected", testCases, 
+							ids = [t[0].split("_")[-1].split(".")[0] for t in testCases])
+def test_part_b(inputPath, expected):
+	assert Solve(inputPath, countDistinctRoutes = True) == expected
 
 if __name__ == "__main__":
 	pytest.main(["-v", __file__])

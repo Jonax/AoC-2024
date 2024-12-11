@@ -34,15 +34,23 @@ def Solve(inputFile, fixIncorrects = False):
 
 	return result
 
-def test_part_a():
-	assert Solve("examples/Day05_Example.txt") == 143
+testCases = [
+	("examples/Day05_Example.txt", 143),
+	("inputs/Day05_input.txt", 4774)
+]
+@pytest.mark.parametrize(	"inputPath, expected", testCases, 
+							ids = [t[0].split("_")[-1].split(".")[0] for t in testCases])
+def test_part_a(inputPath, expected):
+	assert Solve(inputPath) == expected
 
-	assert Solve("inputs/Day05_input.txt") == 4774
-
-def test_part_b():
-	assert Solve("examples/Day05_Example.txt", fixIncorrects = True) == 123
-
-	assert Solve("inputs/Day05_input.txt", fixIncorrects = True) == 6004
+testCases = [
+	("examples/Day05_Example.txt", 123),
+	("inputs/Day05_input.txt", 6004)
+]
+@pytest.mark.parametrize(	"inputPath, expected", testCases, 
+							ids = [t[0].split("_")[-1].split(".")[0] for t in testCases])
+def test_part_b(inputPath, expected):
+	assert Solve(inputPath, fixIncorrects = True) == expected
 
 if __name__ == "__main__":
 	pytest.main(["-v", __file__])

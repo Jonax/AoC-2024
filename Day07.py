@@ -34,15 +34,23 @@ def Evaluate(values, targetValue, concatenate):
 def Solve(inputFile, concatenate = False):
 	return sum(key for key, values in Parse(inputFile) if Evaluate(values, key, concatenate))
 
-def test_part_a():
-	assert Solve("examples/Day07_ExampleA.txt") == 3749
+testCases = [
+	("examples/Day07_ExampleA.txt", 3749),
+	("inputs/Day07_input.txt", 2501605301465)
+]
+@pytest.mark.parametrize(	"inputPath, expected", testCases, 
+							ids = [t[0].split("_")[-1].split(".")[0] for t in testCases])
+def test_part_a(inputPath, expected):
+	assert Solve(inputPath) == expected
 
-	assert Solve("inputs/Day07_input.txt") == 2501605301465
-
-def test_part_b():
-	assert Solve("examples/Day07_ExampleB.txt", concatenate = True) == 11387
-
-	assert Solve("inputs/Day07_input.txt", concatenate = True) == 44841372855953
+testCases = [
+	("examples/Day07_ExampleB.txt", 11387),
+	("inputs/Day07_input.txt", 44841372855953)
+]
+@pytest.mark.parametrize(	"inputPath, expected", testCases, 
+							ids = [t[0].split("_")[-1].split(".")[0] for t in testCases])
+def test_part_b(inputPath, expected):
+	assert Solve(inputPath, concatenate = True) == expected
 
 if __name__ == "__main__":
 	pytest.main(["-v", __file__])

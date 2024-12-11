@@ -49,15 +49,27 @@ def Solve(inputFile, combine = False):
 
 	return sum([a * right[a] for a in left])
 
-def test_part_a():
-	assert Solve("examples/Day01_Example.txt") == 11
+def x(tc):
+	print(tc)
+	return tc
 
-	assert Solve("inputs/Day01_input.txt") == 1941353
+testCases = [
+	("examples/Day01_Example.txt", 11),
+	("inputs/Day01_input.txt", 1941353)
+]
+@pytest.mark.parametrize(	"inputPath, expected", testCases, 
+							ids = [t[0].split("_")[-1].split(".")[0] for t in testCases])
+def test_part_a(inputPath, expected):
+	assert Solve(inputPath) == expected
 
-def test_part_b():
-	assert Solve("examples/Day01_Example.txt", combine = True) == 31
-
-	assert Solve("inputs/Day01_input.txt", combine = True) == 22539317
+testCases =[
+	("examples/Day01_Example.txt", 31),
+	("inputs/Day01_input.txt", 22539317)
+]
+@pytest.mark.parametrize(	"inputPath, expected", testCases, 
+							ids = [t[0].split("_")[-1].split(".")[0] for t in testCases])
+def test_part_b(inputPath, expected):
+	assert Solve(inputPath, combine = True) == expected
 
 if __name__ == "__main__":
 	pytest.main(["-v", __file__])

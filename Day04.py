@@ -88,16 +88,24 @@ def PartB(inputFile):
 
 	return numMatches
 
-def test_part_a():
-	assert PartA("examples/Day04_ExampleA.txt") == 4
-	assert PartA("examples/Day04_ExampleB.txt") == 18
+testCases = [
+	("examples/Day04_ExampleA.txt", 4),
+	("examples/Day04_ExampleB.txt", 18),
+	("inputs/Day04_input.txt", 2571)
+]
+@pytest.mark.parametrize(	"inputPath, expected", testCases, 
+							ids = [t[0].split("_")[-1].split(".")[0] for t in testCases])
+def test_part_a(inputPath, expected):
+	assert PartA(inputPath) == expected
 
-	assert PartA("inputs/Day04_input.txt") == 2571
-
-def test_part_b():
-	assert PartB("examples/Day04_ExampleB.txt") == 9
-
-	assert PartB("inputs/Day04_input.txt") == 1992
+testCases = [
+	("examples/Day04_ExampleB.txt", 9),
+	("inputs/Day04_input.txt", 1992)
+]
+@pytest.mark.parametrize(	"inputPath, expected", testCases, 
+							ids = [t[0].split("_")[-1].split(".")[0] for t in testCases])
+def test_part_b(inputPath, expected):
+	assert PartB(inputPath) == expected
 
 if __name__ == "__main__":
 	pytest.main(["-v", __file__])

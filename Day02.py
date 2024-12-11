@@ -74,15 +74,23 @@ def Solve(inputFile, maxTolerance = 0):
 	# errors deemed acceptable.  
 	return sum(GetReportSafety(report) <= maxTolerance for report in Parse(inputFile))
 
-def test_part_a():
-	assert Solve("examples/Day02_Example.txt") == 2
+testCases = [
+	("examples/Day02_Example.txt", 2),
+	("inputs/Day02_input.txt", 483)
+]
+@pytest.mark.parametrize(	"inputPath, expected", testCases, 
+							ids = [t[0].split("_")[-1].split(".")[0] for t in testCases])
+def test_part_a(inputPath, expected):
+	assert Solve(inputPath) == expected
 
-	assert Solve("inputs/Day02_input.txt") == 483
-
-def test_part_b():
-	assert Solve("examples/Day02_Example.txt", maxTolerance = 1) == 4
-
-	assert Solve("inputs/Day02_input.txt", maxTolerance = 1) == 528
+testCases = [
+	("examples/Day02_Example.txt", 4),
+	("inputs/Day02_input.txt", 528)
+]
+@pytest.mark.parametrize(	"inputPath, expected", testCases, 
+							ids = [t[0].split("_")[-1].split(".")[0] for t in testCases])
+def test_part_b(inputPath, expected):
+	assert Solve(inputPath, maxTolerance = 1) == expected
 
 if __name__ == "__main__":
 	pytest.main(["-v", __file__])

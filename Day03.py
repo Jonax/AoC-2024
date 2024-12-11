@@ -54,15 +54,23 @@ def Solve(inputFile, toggle = False):
 	# Return running total
 	return result
 
-def test_part_a():
-	assert Solve("examples/Day03_ExampleA.txt") == 161
+testCases = [
+	("examples/Day03_ExampleA.txt", 161),
+	("inputs/Day03_input.txt", 187825547)
+]
+@pytest.mark.parametrize(	"inputPath, expected", testCases, 
+							ids = [t[0].split("_")[-1].split(".")[0] for t in testCases])
+def test_part_a(inputPath, expected):
+	assert Solve(inputPath) == expected
 
-	assert Solve("inputs/Day03_input.txt") == 187825547
-
-def test_part_b():
-	assert Solve("examples/Day03_ExampleB.txt", toggle = True) == 48
-
-	assert Solve("inputs/Day03_input.txt", toggle = True) == 85508223
+testCases = [
+	("examples/Day03_ExampleB.txt", 48),
+	("inputs/Day03_input.txt", 85508223)
+]
+@pytest.mark.parametrize(	"inputPath, expected", testCases, 
+							ids = [t[0].split("_")[-1].split(".")[0] for t in testCases])
+def test_part_b(inputPath, expected):
+	assert Solve(inputPath, toggle = True) == expected
 
 if __name__ == "__main__":
 	pytest.main(["-v", __file__])

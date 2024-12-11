@@ -69,15 +69,23 @@ def Solve(inputFile, interfere = False):
 
 	return numMatches
 
-def test_part_a():
-	assert Solve("examples/Day06_Example.txt") == 41
+testCases = [
+	("examples/Day06_Example.txt", 41),
+	("inputs/Day06_input.txt", 5199)
+]
+@pytest.mark.parametrize(	"inputPath, expected", testCases, 
+							ids = [t[0].split("_")[-1].split(".")[0] for t in testCases])
+def test_part_a(inputPath, expected):
+	assert Solve(inputPath) == expected
 
-	assert Solve("inputs/Day06_input.txt") == 5199
-
-def test_part_b():
-	assert Solve("examples/Day06_Example.txt", interfere = True) == 6
-
-	assert Solve("inputs/Day06_input.txt", interfere = True) == 1915
+testCases = [
+	("examples/Day06_Example.txt", 6),
+	("inputs/Day06_input.txt", 1915)
+]
+@pytest.mark.parametrize(	"inputPath, expected", testCases, 
+							ids = [t[0].split("_")[-1].split(".")[0] for t in testCases])
+def test_part_b(inputPath, expected):
+	assert Solve(inputPath, interfere = True) == expected
 
 if __name__ == "__main__":
 	pytest.main(["-v", __file__])

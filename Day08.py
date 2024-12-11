@@ -65,16 +65,24 @@ def Solve(inputFile, limited = False):
 
 	return len(allAntinodes)
 
-def test_part_a():
-	assert Solve("examples/Day08_ExampleA.txt", limited = True) == 14
+testCases = [
+	("examples/Day08_ExampleA.txt", 14),
+	("inputs/Day08_input.txt", 214)
+]
+@pytest.mark.parametrize(	"inputPath, expected", testCases, 
+							ids = [t[0].split("_")[-1].split(".")[0] for t in testCases])
+def test_part_a(inputPath, expected):
+	assert Solve(inputPath, limited = True) == expected
 
-	assert Solve("inputs/Day08_input.txt", limited = True) == 214
-
-def test_part_b():
-	assert Solve("examples/Day08_ExampleB.txt") == 9
-	assert Solve("examples/Day08_ExampleA.txt") == 34
-
-	assert Solve("inputs/Day08_input.txt") == 809
+testCases = [
+	("examples/Day08_ExampleB.txt", 9),
+	("examples/Day08_ExampleA.txt", 34),
+	("inputs/Day08_input.txt", 809)
+]
+@pytest.mark.parametrize(	"inputPath, expected", testCases, 
+							ids = [t[0].split("_")[-1].split(".")[0] for t in testCases])
+def test_part_b(inputPath, expected):
+	assert Solve(inputPath) == expected
 
 if __name__ == "__main__":
 	pytest.main(["-v", __file__])
