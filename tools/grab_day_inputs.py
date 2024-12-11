@@ -32,7 +32,7 @@ def GetYearProgress(session, year):
 	return days
 
 def DownloadDayInput(session, year, day):
-	inputPath = f"inputs/day{day:02}_input.txt"
+	inputPath = f"inputs/Day{day:02}_input.txt"
 
 	inputDir = os.path.dirname(inputPath)
 	if any(inputDir) and not os.path.isdir(inputDir):
@@ -76,7 +76,7 @@ if __name__ == "__main__":
 		if state == -1:
 			continue
 
-		inputPath = f"inputs/day{day:02}_input.txt"
+		inputPath = f"inputs/Day{day:02}_input.txt"
 		inputDownloaded = os.path.isfile(inputPath)
 		inputStatus = inputDownloaded and "Input is present" or "Input needs downloading"
 
