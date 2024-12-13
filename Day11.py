@@ -31,7 +31,6 @@ APPROACH:
 		Calculate for 75 blinks.
 		The problem here comes from the exponential growth of stones in each blink.
 		Handling each stone individually will end up taking too much time, akin to the Game of Rice.
-
 '''
 
 def Parse(inputFile):
