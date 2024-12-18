@@ -49,10 +49,6 @@ def Solve(inputFile, combine = False):
 
 	return sum([a * right[a] for a in left])
 
-def x(tc):
-	print(tc)
-	return tc
-
 testCases = [
 	("examples/Day01_Example.txt", 11),
 	("inputs/Day01_input.txt", 1941353)
