@@ -1,6 +1,5 @@
 import pytest
 import re
-from itertools import batched
 
 def Parse(inputFile):
 	programRegex = re.compile(r"Register A: (?P<a>\d+)\nRegister B: (?P<b>\d+)\nRegister C: (?P<c>\d+)\n\nProgram: (?P<prog>[\d,]+)")
@@ -23,78 +22,68 @@ def GetComboOperand(registers, operand):
 		return operand
 
 	assert operand <= 6
-
 	return registers[operand - 4]
 
 def GenerateProgram(payload, registers = None):
+	# Optional override for the benefit of Part 2. By default (for Part 1), the program will use the 
+	# registered as parsed in the payload. If specified (for Part 2), the list being provided is used
+	# separately. This means that a payload can be reused repeatedly without a prior program run
+	# bleeding its state into later runs.  
 	if registers == None:
 		registers = payload["registers"]
 
-	output = []
-
 	caret = 0
-	jump = None
 	while caret < len(payload["program"]):
 		jump = 2
 
 		opcode, operand = payload["program"][caret:caret + 2]
 
-		#print(f"OPERATION: {opcode} ({operand}) {registers}")
-
+		# Consult the problem specification for a detailed description of what to do for each opcode.
+		# Instead, we've condensed them down to their simplest forms.  
 		if opcode == 0:	# adv (combo)
-			#print(f"\t{opcode} (ADV): {registers[0]} // 2 ** {GetComboOperand(registers, operand)}")
-			registers[0] = registers[0] >> GetComboOperand(registers, operand)
+			registers[0] >>= GetComboOperand(registers, operand)
 		elif opcode == 1: # bxl (literal)
-			#print(f"\t{opcode} (BXL): {registers[1]} ^ {operand}")
-			registers[1] = registers[1] ^ operand
+			registers[1] ^= operand
 		elif opcode == 2: # bst (combo)
-			#print(f"\t{opcode} (BST): {GetComboOperand(registers, operand)} % 8")
 			registers[1] = GetComboOperand(registers, operand) % 8
 		elif opcode == 3: # jnz (literal)
 			if registers[0] != 0:
+				# Taking advantage of Python's ability to swap variables in one go. 
+				# This may not necessarily work in other languages.  
 				old, caret = caret, operand
-				#print(f"\t{opcode} (JNZ): {registers[0]} {old}-->{caret}")
 				if caret != old:
 					jump = 0
-			else:
-				pass #print(f"\t{opcode} (JNZ): {registers[0]}")
 		elif opcode == 4: # bxc (unused)
-			#print(f"\t{opcode} (BXR): {registers[1]} ^ {registers[2]}")
-			registers[1] = registers[1] ^ registers[2]
+			registers[1] ^= registers[2]
 		elif opcode == 5: # out (combo)
-			#print(f"\t{opcode} (OUT): Output: {GetComboOperand(registers, operand) % 8}")
-			output.append(GetComboOperand(registers, operand) % 8)
+			yield GetComboOperand(registers, operand) % 8
 		elif opcode == 6: # bdv (combo)
-			#print(f"\t{opcode} (BDV): {registers[0]} // 2 ** {GetComboOperand(registers, operand)}")
 			registers[1] = registers[0] >> GetComboOperand(registers, operand)
 		elif opcode == 7: # cdv (combo)
-			#print(f"\t{opcode} (CDV): {registers[0]} // 2 ** {GetComboOperand(registers, operand)}")
 			registers[2] = registers[0] >> GetComboOperand(registers, operand)
 
 		caret += jump
 
-	return output
-
 def PartA(inputFile):
-	payload = Parse(inputFile)
-
-	return ",".join([str(n) for n in GenerateProgram(payload)]) 
+	return ",".join([str(n) for n in GenerateProgram(Parse(inputFile))]) 
 
 def PartB(inputFile):
 	payload = Parse(inputFile)
 
 	n = 0
 	for i in range(len(payload["program"]), 0, -1):
-		n = n << 3
+		n <<= 3
 
 		reference = payload["program"][i - 1:]
-
-		while True:
-			result = GenerateProgram(payload, [n, payload["registers"][1], payload["registers"][2]])
-
-			if result == reference:
-				break
-
+		# We could return the calculated program as a full list and compare, but this is a much nicer
+		# trick to make it faster.  
+		# GenerateProgram() acts as a generator and spouts out each value as it's calculated. 
+		# Consequently, as soon as it hits a value that doesn't match the reference, it can bail out 
+		# much earlier and move to the next attempt instead of calculating the rest. 
+		while any(a != b for a, b in zip(
+			GenerateProgram(payload, [n, *payload["registers"][1:]]), 
+			reference
+		)):
 			n += 1
 
 	return n
